@@ -75,6 +75,25 @@ jobs:
     - name: Rename JA2 UB output
       run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_ub_113_${{ env.SHA_SHORT }}.exe
     
+    - name: Replace GameVersion.cpp (Map Editor)
+      run: |
+        rm GameVersion.cpp
+        echo @"
+        #include "Types.h"
+        #include "GameVersion.h"
+        
+        CHAR16 zVersionLabel[256] = { L"Map Editor v1.13 (Development Build) (Github)" };
+        CHAR8 czVersionNumber[16] = { "V ${{ env.DATE }}" };
+        CHAR16 zTrackingNumber[16] = { L"Z" };
+        CHAR16 zRevisionNumber[16] = { L"Hash ${{ env.SHA_SHORT }}" };
+        "@ | Out-File -FilePath GameVersion.cpp
+    
+    - name: Build Map Editor
+      run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
+      
+    - name: Rename Map Editor output
+      run: mv bin/VS2013/MapEditor_EN_Release_master_VS2019.exe mapeditor_113_${{ env.SHA_SHORT }}.exe
+    
     - name: Upload executable
       uses: actions/upload-artifact@v3
       with:
@@ -82,5 +101,6 @@ jobs:
         path: |
           ja2_113_${{ env.SHA_SHORT }}.exe
           ja2_ub_113_${{ env.SHA_SHORT }}.exe
+          mapeditor_113_${{ env.SHA_SHORT }}.exe
         
 

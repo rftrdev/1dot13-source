@@ -100,11 +100,16 @@ jobs:
     - name: Rename JA2 UB output
       run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.SHA_SHORT }}.exe
       
-    - name: Upload executable
+    - name: Compress ja2 folder
+      uses: TheDoctor0/zip-release@0.6.2
+      with:
+        filename: ja2-113.zip
+        path: ja2/
+        exclusions: ja2/.git/
+      
+    - name: Upload zip
       uses: actions/upload-artifact@v3
       with:
-        name: ja2_113
-        path: |
-          ja2/
-          !ja2/.git/
+        name: ja2-113.zip
+        path: ja2-113.zip
         

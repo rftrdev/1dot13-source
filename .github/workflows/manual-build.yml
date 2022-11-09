@@ -27,9 +27,6 @@ jobs:
       with:
         repository: 1dot13/gamedir
         path: ja2
-        
-    - name: Clean gamedir
-      run: Remove-Item "ja2/.git" -Recurse    
     
     - name: Replace GameVersion.cpp (Map Editor)
       run: |
@@ -107,6 +104,8 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ja2_113
-        path: ja2/
+        path: |
+          ja2/
+          !ja2/.git/
         
 

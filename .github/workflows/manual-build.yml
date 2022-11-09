@@ -21,7 +21,13 @@ jobs:
       run: |
         echo "${{ env.SHA_SHORT }}"
         echo "${{ env.DATE }}"
-        
+    
+    - name: Checkout gamedir
+      uses: actions/checkout@v3
+      with:
+        repository: 1dot13/gamedir
+        path: ja2
+    
     - name: Replace GameVersion.cpp (Map Editor)
       run: |
         rm GameVersion.cpp
@@ -39,7 +45,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=MapEditor
       
     - name: Rename Map Editor output
-      run: mv bin/VS2013/MapEditor_EN_Release_master.exe mapeditor_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/MapEditor_EN_Release_master.exe ja2/mapeditor_113_${{ env.SHA_SHORT }}.exe
   
     - name: Replace GameVersion.cpp (JA2)
       run: |
@@ -58,7 +64,7 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_113_${{ env.SHA_SHORT }}.exe
       
     - name: Replace GameVersion.cpp and builddefines.h (JA2 UB)
       run: |
@@ -92,15 +98,12 @@ jobs:
       run: msbuild ja2_VS2019.sln -property:Configuration=Release
       
     - name: Rename JA2 UB output
-      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2_ub_113_${{ env.SHA_SHORT }}.exe
+      run: mv bin/VS2013/JA2_EN_Release_master_VS2019.exe ja2/ja2_ub_113_${{ env.SHA_SHORT }}.exe
       
     - name: Upload executable
       uses: actions/upload-artifact@v3
       with:
         name: ja2_113
-        path: |
-          ja2_113_${{ env.SHA_SHORT }}.exe
-          ja2_ub_113_${{ env.SHA_SHORT }}.exe
-          mapeditor_113_${{ env.SHA_SHORT }}.exe
+        path: ja2/*
         
 

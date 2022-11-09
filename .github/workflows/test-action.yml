@@ -25,3 +25,9 @@ jobs:
         # Tool to use for archiving
         #type: # optional, default is zip
         
+    - name: upload zip
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-zip
+        path: test.zip
+        

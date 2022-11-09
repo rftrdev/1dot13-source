@@ -104,6 +104,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ja2_113
-        path: ja2/*
+        path: ja2/
         
 

@@ -1621,7 +1621,6 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 			switch( pSoldier->bAimShotLocation )
 			{
 				case AIM_SHOT_HEAD:
-
 					// If we have a knife in hand, change string
 					if ( Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass == IC_BLADE )
 					{
@@ -1631,40 +1630,25 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 					{
 						wcscpy( gzLocation, TacticalStr[ HEAD_HIT_LOCATION_STR ] );
 					}
-					if ( !pSoldier->bDoBurst )
-						gfUIBodyHitLocation = TRUE;
-					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
-					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
-						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
-						gfUIBodyHitLocation = TRUE;
 					break;
 
 				case AIM_SHOT_TORSO:
 					wcscpy( gzLocation, TacticalStr[ TORSO_HIT_LOCATION_STR ] );
-					if ( !pSoldier->bDoBurst )
-						gfUIBodyHitLocation = TRUE;
-					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
-					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
-						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
-						gfUIBodyHitLocation = TRUE;
 					break;
 
 				case AIM_SHOT_LEGS:
 					wcscpy( gzLocation, TacticalStr[ LEGS_HIT_LOCATION_STR ] );
-					if ( !pSoldier->bDoBurst )
-						gfUIBodyHitLocation = TRUE;
-					// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
-					// CTH cursors.
-					else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
-						gfUIBodyHitLocation = TRUE;
-					else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
-					gfUIBodyHitLocation = TRUE;
 					break;
 			}
+
+			if ( !pSoldier->bDoBurst )
+				gfUIBodyHitLocation = TRUE;
+			// HEADROCK: This'll toggle whether the bodypart targetting indicator shows up in the burst/auto
+			// CTH cursors.
+			else if ( pSoldier->bDoBurst && !pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 2) )
+				gfUIBodyHitLocation = TRUE;
+			else if ( pSoldier->bDoBurst && pSoldier->bDoAutofire && (gGameExternalOptions.ubNewCTHBars == 1 || gGameExternalOptions.ubNewCTHBars == 3) )
+				gfUIBodyHitLocation = TRUE;
 		}
 	}
 }

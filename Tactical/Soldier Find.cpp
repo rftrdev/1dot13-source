@@ -905,6 +905,8 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pAttackingSoldier, SOLDIERTYPE
 	{
 		dRelPer = (FLOAT)sRelY / ( aRect.iBottom - aRect.iTop );
 
+		const bool maliciousAttacker = gMercProfiles[pAttackingSoldier->ubProfile].bCharacterTrait == CHAR_TRAIT_MALICIOUS;
+
 		// Determine relative positions
 		switch( gAnimControl[ pTargetSoldier->usAnimState ].ubHeight )
 		{
@@ -917,9 +919,8 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pAttackingSoldier, SOLDIERTYPE
 				}
 				else if ( dRelPer < .6 )
 				{
-					// rftr TODO: check pTargetSoldier for malicious trait!!
 					// rftr TODO: adjust dRelPer
-					if (dRelPer >= 0.5)
+					if (maliciousAttacker && dRelPer >= 0.5)
 					{
 						(*usFlags) = TILE_FLAG_LOWERMID;
 						return(TRUE);
@@ -943,9 +944,8 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pAttackingSoldier, SOLDIERTYPE
 				}
 				else if ( dRelPer < .7 )
 				{
-					// rftr TODO: check pTargetSoldier for malicious trait!!
 					// rftr TODO: adjust dRelPer
-					if (dRelPer >= 0.6)
+					if (maliciousAttacker && dRelPer >= 0.6)
 					{
 						(*usFlags) = TILE_FLAG_LOWERMID;
 						return(TRUE);

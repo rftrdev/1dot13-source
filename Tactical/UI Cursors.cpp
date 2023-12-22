@@ -1558,7 +1558,7 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 			{
 				pTargetSoldier = MercPtrs[ gusUIFullTargetID ];
 
-				if ( FindRelativeSoldierPosition( pTargetSoldier, &usFlags, gusMouseXPos, gusMouseYPos )	)
+				if ( FindRelativeSoldierPosition( pSoldier, pTargetSoldier, &usFlags, gusMouseXPos, gusMouseYPos )	)
 				{
 						fOnGuy = TRUE;
 				}

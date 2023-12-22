@@ -892,7 +892,7 @@ BOOLEAN IsPointInSoldierBoundingBox( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 }
 
 
-BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pTargetSoldier, UINT16 *usFlags, INT16 sX, INT16 sY )
+BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pAttackingSoldier, SOLDIERTYPE *pTargetSoldier, UINT16 *usFlags, INT16 sX, INT16 sY )
 {
 	SGPRect				aRect;
 	INT16					sRelX, sRelY;

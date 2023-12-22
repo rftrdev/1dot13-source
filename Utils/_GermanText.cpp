@@ -4038,6 +4038,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"NACKEN",
 	L"KOPF",
 	L"TORSO",
+	L"GROIN",
 	L"BEINE",
 	L"Der Herrin sagen, was sie wissen will?",
 	L"Fingerabdruck-ID gespeichert",

@@ -4010,6 +4010,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"SZYJA",
 	L"GŁOWA",
 	L"TUŁÓW",
+	L"GROIN",
 	L"NOGI",
 	L"Powiedzieć królowej to, co chce wiedzieć?",
 	L"Wzór odcisku palca pobrany",

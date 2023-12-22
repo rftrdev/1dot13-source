@@ -4005,6 +4005,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"NEK",
 	L"HOOFD",
 	L"TORSO",
+	L"GROIN",
 	L"BENEN",
 	L"De Koningin vertellen wat ze wil weten?",		// L"Tell the Queen what she wants to know?",
 	L"Vingerafdruk-ID nodig",					// L"Fingerprint ID aquired",

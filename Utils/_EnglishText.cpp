@@ -4004,6 +4004,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"NECK",
 	L"HEAD",
 	L"TORSO",
+	L"GROIN",
 	L"LEGS",
 	L"Tell the Queen what she wants to know?",
 	L"Fingerprint ID aquired",

@@ -4004,6 +4004,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"颈部",
 	L"头部",
 	L"躯体",
+	L"GROIN",
 	L"腿部",
 	L"要告诉女王她想知道的情报吗？",
 	L"获得指纹ID",

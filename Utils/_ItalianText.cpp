@@ -3999,6 +3999,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"COLLO",
 	L"TESTA",
 	L"TORSO",
+	L"GROIN",
 	L"GAMBE",
 	L"Vuoi dire alla Regina cosa vuole sapere?",
 	L"Impronta digitale ID ottenuta",

@@ -17,10 +17,11 @@
 										// hopefully, it will not cause any troubles anywhere .. it shouldn't 
 
 #define AIM_SHOT_RANDOM				0
-#define AIM_SHOT_HEAD					1
+#define AIM_SHOT_HEAD				1
 #define AIM_SHOT_TORSO				2
-#define AIM_SHOT_LEGS					3
+#define AIM_SHOT_LEGS				3
 #define AIM_SHOT_GLAND				4
+#define AIM_SHOT_GROIN				5
 
 #define MIN_AMB_LEVEL_FOR_MERC_LIGHTS		9
 

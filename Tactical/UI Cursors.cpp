@@ -1575,6 +1575,10 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 				{
 					pSoldier->bAimShotLocation = AIM_SHOT_LEGS;
 				}
+				if ( usFlags & TILE_FLAG_LOWERMID )
+				{
+					pSoldier->bAimShotLocation = AIM_SHOT_GROIN;
+				}
 				if ( usFlags & TILE_FLAG_MID )
 				{
 					pSoldier->bAimShotLocation = AIM_SHOT_TORSO;
@@ -1634,6 +1638,10 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 
 				case AIM_SHOT_TORSO:
 					wcscpy( gzLocation, TacticalStr[ TORSO_HIT_LOCATION_STR ] );
+					break;
+
+				case AIM_SHOT_GROIN:
+					wcscpy( gzLocation, TacticalStr[ GROIN_HIT_LOCATION_STR ] );
 					break;
 
 				case AIM_SHOT_LEGS:

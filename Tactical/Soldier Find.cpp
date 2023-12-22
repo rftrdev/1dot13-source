@@ -892,21 +892,21 @@ BOOLEAN IsPointInSoldierBoundingBox( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 }
 
 
-BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT16 sX, INT16 sY )
+BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pTargetSoldier, UINT16 *usFlags, INT16 sX, INT16 sY )
 {
 	SGPRect				aRect;
 	INT16					sRelX, sRelY;
 	FLOAT					dRelPer;
 
 	// Get Rect contained in the soldier
-	GetSoldierScreenRect( pSoldier, &aRect );
+	GetSoldierScreenRect( pTargetSoldier, &aRect );
 
 	if ( IsPointInScreenRectWithRelative( sX, sY, &aRect, &sRelX, &sRelY ) )
 	{
 		dRelPer = (FLOAT)sRelY / ( aRect.iBottom - aRect.iTop );
 
 		// Determine relative positions
-		switch( gAnimControl[ pSoldier->usAnimState ].ubHeight )
+		switch( gAnimControl[ pTargetSoldier->usAnimState ].ubHeight )
 		{
 			case ANIM_STAND:
 
@@ -917,6 +917,13 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 				}
 				else if ( dRelPer < .6 )
 				{
+					// rftr TODO: check pTargetSoldier for malicious trait!!
+					// rftr TODO: adjust dRelPer
+					if (dRelPer >= 0.5)
+					{
+						(*usFlags) = TILE_FLAG_LOWERMID;
+						return(TRUE);
+					}
 					(*usFlags )= TILE_FLAG_MID;
 					return( TRUE );
 				}
@@ -936,6 +943,13 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 				}
 				else if ( dRelPer < .7 )
 				{
+					// rftr TODO: check pTargetSoldier for malicious trait!!
+					// rftr TODO: adjust dRelPer
+					if (dRelPer >= 0.6)
+					{
+						(*usFlags) = TILE_FLAG_LOWERMID;
+						return(TRUE);
+					}
 					(*usFlags )= TILE_FLAG_MID;
 					return( TRUE );
 				}
@@ -958,20 +972,20 @@ BOOLEAN FindRelativeSoldierPosition( SOLDIERTYPE *pSoldier, UINT16 *usFlags, INT
 
 						// Flugente: we measure the distance of the bullet's location to the location of the soldier, and to the 2 gridnos his head and leg occupy
 						// From this we can decide what body part was hit
-						ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
+						ConvertGridNoToCenterCellXY(pTargetSoldier->sGridNo, &sX, &sY);
 						FLOAT bodycenterX = (FLOAT) sX;
 						FLOAT bodycenterY = (FLOAT) sY;
 
 						FLOAT difftobodycenter = sqrt( (bodycenterX - sWorldX) * (bodycenterX - sWorldX) + (bodycenterY - sWorldY) * (bodycenterY - sWorldY) );
 						
-						INT32 viewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
+						INT32 viewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( pTargetSoldier->ubDirection ) );
 						ConvertGridNoToCenterCellXY(viewdirectiongridno, &sX, &sY);
 						FLOAT nextgridnocenterX = (FLOAT) sX;
 						FLOAT nextgridnocenterY = (FLOAT) sY;
 
 						FLOAT difftonextgridno = sqrt( (nextgridnocenterX - sWorldX) * (nextgridnocenterX - sWorldX) + (nextgridnocenterY - sWorldY) * (nextgridnocenterY - sWorldY) );
 						
-						INT32 oppositeviewdirectiongridno = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[pSoldier->ubDirection] ) );
+						INT32 oppositeviewdirectiongridno = NewGridNo( pTargetSoldier->sGridNo, DirectionInc( gOppositeDirection[pTargetSoldier->ubDirection] ) );
 						ConvertGridNoToCenterCellXY(oppositeviewdirectiongridno, &sX, &sY);
 						FLOAT oppositenextgridnocenterX = (FLOAT) sX;
 						FLOAT oppositenextgridnocenterY = (FLOAT) sY;

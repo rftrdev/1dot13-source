@@ -7998,11 +7998,11 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 			case AIM_SHOT_HEAD:
 				iSlot = HELMETPOS;
 				break;
+			case AIM_SHOT_GROIN:
 			case AIM_SHOT_LEGS:
 				iSlot = LEGPOS;
 				break;
 			case AIM_SHOT_TORSO:
-			case AIM_SHOT_GROIN:
 			default:
 				iSlot = VESTPOS;
 				break;

@@ -5904,6 +5904,7 @@ void DrawNCTHCursorItemPics( INT16 sStartScreenX, INT16 sStartScreenY  )
 			if( pTargetSoldier->inv[VESTPOS].exists() )
 				usItemID = pTargetSoldier->inv[VESTPOS].usItem;
 			break;
+		case AIM_SHOT_GROIN:
 		case AIM_SHOT_LEGS:
 			if( pTargetSoldier->inv[LEGPOS].exists() )
 				usItemID = pTargetSoldier->inv[LEGPOS].usItem;
@@ -5997,6 +5998,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 			if( pTargetSoldier->inv[VESTPOS].exists() )
 				usItemID = pTargetSoldier->inv[VESTPOS].usItem;
 			break;
+		case AIM_SHOT_GROIN:
 		case AIM_SHOT_LEGS:
 			if( pTargetSoldier->inv[LEGPOS].exists() )
 				usItemID = pTargetSoldier->inv[LEGPOS].usItem;
@@ -6020,6 +6022,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 					swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_VEST] );
 					//swprintf( NameStr, L"%s", L"Vest" );
 					break;
+				case AIM_SHOT_GROIN:
 				case AIM_SHOT_LEGS:
 					swprintf( NameStr, L"%s", gzTooltipStrings[STR_TT_LEGGINGS] );
 					//swprintf( NameStr, L"%s", L"Leggings" );

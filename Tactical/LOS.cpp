@@ -2049,7 +2049,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 		{
 			// this if statement is to avoid the 'creature weak spot' target
 			// spot for creatures
-			if ( ubPosType == HEAD_TARGET_POS || ubPosType == LEGS_TARGET_POS )
+			if ( ubPosType == HEAD_TARGET_POS || ubPosType == LEGS_TARGET_POS || ubPosType == GROIN_TARGET_POS )
 			{
 				// override!
 				ubPosType = TORSO_TARGET_POS;
@@ -2141,6 +2141,22 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 			break;
 		case ANIM_CROUCH:
 			*pdZPos = CROUCHED_TORSO_TARGET_POS;
+			break;
+		case ANIM_PRONE:
+			*pdZPos = PRONE_TORSO_TARGET_POS;
+			break;
+		default:
+			return( FALSE );
+		}
+		break;
+	case GROIN_TARGET_POS:
+		switch ( ubHeight )
+		{
+		case ANIM_STAND:
+			*pdZPos = STANDING_GROIN_TARGET_POS;
+			break;
+		case ANIM_CROUCH:
+			*pdZPos = CROUCHED_GROIN_TARGET_POS;
 			break;
 		case ANIM_PRONE:
 			*pdZPos = PRONE_TORSO_TARGET_POS;
@@ -2309,6 +2325,9 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 			break;
 		case AIM_SHOT_TORSO:
 			ubPosType = TORSO_TARGET_POS;
+			break;
+		case AIM_SHOT_GROIN:
+			ubPosType = GROIN_TARGET_POS;
 			break;
 		case AIM_SHOT_LEGS:
 			ubPosType = LEGS_TARGET_POS;
@@ -4368,6 +4387,9 @@ UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, S
 		break;
 	case AIM_SHOT_TORSO:
 		ubPosType = TORSO_TARGET_POS;
+		break;
+	case AIM_SHOT_GROIN:
+		ubPosType = GROIN_TARGET_POS;
 		break;
 	case AIM_SHOT_LEGS:
 		ubPosType = LEGS_TARGET_POS;

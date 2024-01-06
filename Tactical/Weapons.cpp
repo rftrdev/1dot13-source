@@ -1339,6 +1339,9 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 			*piImpactForCrits = LEGS_DAMAGE_ADJUSTMENT( iImpact );
 			*piNewImpact = LEGS_DAMAGE_ADJUSTMENT( *piImpactForCrits );
 			break;
+		case AIM_SHOT_GROIN:
+			// rftr todo: breath damage! see MSG113_SOLDIER_HIT_TO_GROIN
+			// break;
 		default:
 			*piImpactForCrits = iImpact;
 			*piNewImpact = iImpact;
@@ -1745,6 +1748,10 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 			{
 				pSoldier->bAimShotLocation = AIM_SHOT_HEAD;
 			}
+			else if (uiRoll == 69)
+			{
+				pSoldier->bAimShotLocation = AIM_SHOT_GROIN;
+			}
 			else
 			{
 				pSoldier->bAimShotLocation = AIM_SHOT_TORSO;
@@ -1784,6 +1791,9 @@ void GetTargetWorldPositions( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, FLOAT 
 				break;
 			case AIM_SHOT_TORSO:
 				CalculateSoldierZPos( pTargetSoldier, TORSO_TARGET_POS, &dTargetZ );
+				break;
+			case AIM_SHOT_GROIN:
+				CalculateSoldierZPos( pTargetSoldier, GROIN_TARGET_POS, &dTargetZ );
 				break;
 			case AIM_SHOT_LEGS:
 				{
@@ -4907,6 +4917,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 						pTargetSoldier->aiData.bAimTime = 1;
 
 					pTargetSoldier->bAimMeleeLocation = AIM_SHOT_RANDOM;
+					// rftr todo: chance for groin counterattack?
 					if (gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE)
 					{
 						if (Chance((6 + EffectiveDexterity(pTargetSoldier, FALSE) / 10 + 5 * NUM_SKILL_TRAITS(pTargetSoldier, MARTIAL_ARTS_NT)) * 100 / (100 + pSoldier->bBreath)))
@@ -6837,6 +6848,12 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 		iPenalty = INT32(gGameExternalOptions.uShotHeadPenalty * iSightRange / 10);
 		iChance -= iPenalty;
 	}
+	else if (ubAimPos == AIM_SHOT_GROIN)
+	{
+		// penalty of 4% per tile
+		iPenalty = INT32(4 * iSightRange / 10);
+		iChance -= iPenalty;
+	}
 	else if (ubAimPos == AIM_SHOT_LEGS)
 	{
 		// penalty of 1% per tile
@@ -6962,6 +6979,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 						uiTargetHeight += 2;
 						break;
 					case AIM_SHOT_TORSO:
+					case AIM_SHOT_GROIN:
 					case AIM_SHOT_RANDOM:
 					case AIM_SHOT_GLAND:
 						uiTargetHeight += 1;
@@ -7543,6 +7561,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTime,
 							ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedHead;
 							break;
 						case AIM_SHOT_TORSO:
+						case AIM_SHOT_GROIN:
 						case AIM_SHOT_RANDOM:
 						case AIM_SHOT_GLAND:
 							ubCoweringDivisor = gGameExternalOptions.ubCoweringPenaltyDivisorCrouchedTorso;
@@ -7753,8 +7772,10 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 			FLOAT dTargetArea = 300.0f; // new definition
 
 			// Aiming at the head is much harder. Assume aperture 5 for this.
-			if ( ubAimPos == AIM_SHOT_HEAD )
+			if (ubAimPos == AIM_SHOT_HEAD)
 				dTargetArea = 80.0f;
+			else if (ubAimPos == AIM_SHOT_GROIN)
+				dTargetArea = 60.0f;
 
 			FLOAT dApertureArea = (FLOAT)(PI * (dAperture * dAperture));
 
@@ -7791,6 +7812,7 @@ UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 ubAimTim
 
 		// sevenfm: take into account target facing
 		SOLDIERTYPE* pTarget = SimpleFindSoldier(sGridNo, bTargetLevel);
+		// rftr todo: factor in facing direction for groin shots
 
 		if (pTarget &&
 			gGameCTHConstants.SIDE_FACING_DIVISOR <= 1.0f &&
@@ -7980,6 +8002,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 				iSlot = LEGPOS;
 				break;
 			case AIM_SHOT_TORSO:
+			case AIM_SHOT_GROIN:
 			default:
 				iSlot = VESTPOS;
 				break;
@@ -8519,6 +8542,7 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 			{
 				bStatLoss = (INT8) PreRandom( iImpactForCrits / 2 ) + 1;
 				// SANDRO - malicious hit
+				// rftr todo: can I remove this and check to see if the aimed shot hit? How does head shot detection work? 
 				if ( fMaliciousHit && Chance( max( 15, uiCritChance )) && ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS ) && 
 					( sHitBy >= 20 ) && ( pTarget->ubBodyType <= STOCKYMALE ) && ( gAnimControl[ pTarget->usAnimState ].ubHeight != ANIM_PRONE ) )
 				{
@@ -8941,6 +8965,7 @@ INT32 HTHImpact( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTarget, INT32 iHitBy, BO
 			}
 		}
 
+		// rftr todo: malicious groin shots in melee (where is the proper place to do this?)
 		// Enhanced Close Combat System - aiming at body parts makes difference
 		if ( !autoresolve && gGameExternalOptions.fEnhancedCloseCombatSystem)
 		{

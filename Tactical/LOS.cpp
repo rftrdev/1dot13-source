@@ -54,6 +54,7 @@
 #include "ai.h"					// sevenfm
 #include "GameInitOptionsScreen.h"
 #include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
+#include "Drugs And Alcohol.h"	// needed for personality check (should be moved elsewhere)
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -2856,6 +2857,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			{
 				// Flugente: kids are smaller. We have to keep hat in mind... otherwise we will never make a sucessful headshot
 				BOOLEAN iskid = ( pTarget->ubBodyType == HATKIDCIV || pTarget->ubBodyType == KIDCIV );
+				BOOLEAN isMalicious = DoesMercHavePersonality( pFirer, CHAR_TRAIT_MALICIOUS );
 
 				switch (gAnimControl[ pTarget->usAnimState ].ubEndHeight)
 				{
@@ -2889,6 +2891,10 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 							if (dZPosRelToMerc > STANDING_HEAD_BOTTOM_POS)
 							{
 								ubHitLocation = AIM_SHOT_HEAD;
+							}
+							else if (isMalicious && dZPosRelToMerc > STANDING_GROIN_BOTTOM_POS && dZPosRelToMerc < STANDING_GROIN_TARGET_POS)
+							{
+								ubHitLocation = AIM_SHOT_GROIN;
 							}
 							else if (dZPosRelToMerc < STANDING_TORSO_BOTTOM_POS )
 							{
@@ -2929,6 +2935,10 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 						if (dZPosRelToMerc > CROUCHED_HEAD_BOTTOM_POS)
 						{
 							ubHitLocation = AIM_SHOT_HEAD;
+						}
+						else if (isMalicious && dZPosRelToMerc > CROUCHED_GROIN_BOTTOM_POS && dZPosRelToMerc < CROUCHED_GROIN_TARGET_POS)
+						{
+							ubHitLocation = AIM_SHOT_GROIN;
 						}
 						else if ( dZPosRelToMerc < CROUCHED_TORSO_BOTTOM_POS )
 						{

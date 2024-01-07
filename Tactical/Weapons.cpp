@@ -8398,6 +8398,25 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 					}
 				}
 				break;
+			case AIM_SHOT_GROIN:
+				if ( DoesMercHavePersonality( pFirer, CHAR_TRAIT_MALICIOUS ) && (ubHitLocation == AIM_SHOT_GROIN) && (sHitBy >= 20) && (pTarget->ubBodyType <= STOCKYMALE) && (gAnimControl[ pTarget->usAnimState ].ubHeight != ANIM_PRONE) )
+				{
+					if ( pFirer )
+						HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
+
+					DeductPoints( pTarget, 0, (5 * APBPConstants[BP_GET_HIT]) );
+
+					if ( iImpactForCrits > MIN_DAMAGE_FOR_AUTO_FALL_OVER )
+					{
+						*pubSpecial = FIRE_WEAPON_GROIN_FALLDOWN_SPECIAL;
+					}
+					// else ramping up chance from 1/2 the automatic value onwards
+					else if ( iImpactForCrits > (MIN_DAMAGE_FOR_AUTO_FALL_OVER / 2) && ( PreRandom( MIN_DAMAGE_FOR_AUTO_FALL_OVER / 2 ) < (UINT32)(iImpactForCrits - MIN_DAMAGE_FOR_AUTO_FALL_OVER / 2) ) )
+					{
+						*pubSpecial = FIRE_WEAPON_GROIN_FALLDOWN_SPECIAL;
+					}
+				}
+				break;
 			case AIM_SHOT_LEGS:
 				// is the damage enough to make us fall over?
 				if ( pubSpecial && IS_MERC_BODY_TYPE( pTarget ) && gAnimControl[ pTarget->usAnimState ].ubEndHeight == ANIM_STAND && !pTarget->MercInWater() )
@@ -8543,23 +8562,23 @@ INT32 BulletImpact( SOLDIERTYPE *pFirer, BULLET *pBullet, SOLDIERTYPE * pTarget,
 				bStatLoss = (INT8) PreRandom( iImpactForCrits / 2 ) + 1;
 				// SANDRO - malicious hit
 				// rftr todo: can I remove this and check to see if the aimed shot hit? How does head shot detection work? 
-				if ( fMaliciousHit && Chance( max( 15, uiCritChance )) && ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS ) && 
-					( sHitBy >= 20 ) && ( pTarget->ubBodyType <= STOCKYMALE ) && ( gAnimControl[ pTarget->usAnimState ].ubHeight != ANIM_PRONE ) )
-				{
-					// no stats to lose, but drain breath a lot
-					DeductPoints( pTarget, 0, (5 * APBPConstants[BP_GET_HIT]) );
-					SoldierCollapse( pTarget );
+				//if ( fMaliciousHit && Chance( max( 15, uiCritChance )) && ( ubHitLocation == AIM_SHOT_TORSO || ubHitLocation == AIM_SHOT_LEGS ) && 
+				//	( sHitBy >= 20 ) && ( pTarget->ubBodyType <= STOCKYMALE ) && ( gAnimControl[ pTarget->usAnimState ].ubHeight != ANIM_PRONE ) )
+				//{
+				//	// no stats to lose, but drain breath a lot
+				//	DeductPoints( pTarget, 0, (5 * APBPConstants[BP_GET_HIT]) );
+				//	SoldierCollapse( pTarget );
 
-					if (pTarget->name[0] && pTarget->bVisible == TRUE)
-					{
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLDIER_HIT_TO_GROIN], pTarget->GetName() );
-					}
+				//	if (pTarget->name[0] && pTarget->bVisible == TRUE)
+				//	{
+				//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLDIER_HIT_TO_GROIN], pTarget->GetName() );
+				//	}
 
-					if ( pFirer )
-						// Gain morale for inflicting critical hit
-						HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
-				}
-				else
+				//	if ( pFirer )
+				//		// Gain morale for inflicting critical hit
+				//		HandleMoraleEvent( pFirer, MORALE_MALICIOUS_HIT, pFirer->sSectorX, pFirer->sSectorY, pFirer->bSectorZ );
+				//}
+				//else
 				{
 					switch( ubHitLocation )
 					{

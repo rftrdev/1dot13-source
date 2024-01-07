@@ -6562,7 +6562,7 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					}
 				}
 			}
-			else if ( ubSpecial == FIRE_WEAPON_LEG_FALLDOWN_SPECIAL )
+			else if ( ubSpecial == FIRE_WEAPON_GROIN_FALLDOWN_SPECIAL || ubSpecial == FIRE_WEAPON_LEG_FALLDOWN_SPECIAL )
 			{
 				// possibly play fall over anim!
 				// this one is NOT restricted by distance
@@ -6572,7 +6572,8 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					if ( gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_STAND && !pSoldier->MercInWater( ) )
 					{
 						fFallenOver = TRUE;
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[20], pSoldier->GetName( ) );
+						const STR16 msg = ubSpecial == FIRE_WEAPON_GROIN_FALLDOWN_SPECIAL ? New113Message[MSG113_SOLDIER_HIT_TO_GROIN] : gzLateLocalizedString[20];
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, msg, pSoldier->GetName( ) );
 					}
 				}
 			}

@@ -1429,6 +1429,7 @@ void DetermineCursorBodyLocation( UINT8 ubSoldierID, BOOLEAN fDisplay, BOOLEAN f
 	BOOLEAN	fOnGuy = FALSE;
 	LEVELNODE		*pNode;
 
+	wcscpy( gzLocation, L"" );
 	pSoldier = MercPtrs[ ubSoldierID ];
 
 	if ( gTacticalStatus.ubAttackBusyCount > 0 )

@@ -460,7 +460,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"优点：需要耐心的工作会得到效率奖励，比如修理、撬锁、解除陷阱、医治和训练民兵。\n缺点：略微降低中断率。",// L"A: Has bonus for actions which needs patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: His interrupts chance is slightly lowered.",
 	L"优点：增加对火力压制和恐惧的承受力。\n负伤其他佣兵阵亡对他的士气影响的也比较小。\n缺点：容易成为敌人的移动靶。",// L"A: Incresed resistance to suppression and fear.\n    Morale loss for taking damage and companions deaths is lower for him.\nD: Can be hit easier and enemy penalty for moving target is lesser in his case.",
 	L"优点：进行非战斗任务时士气会提升（除了训练民兵）。\n缺点：杀人不增加士气。",// L"A: He gains morale when on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
-	L"优点：攻击有更高的几率能造成受害者属性值降低，和更严重的创伤，同时提高自己的士气。\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Has bigger chance for inflicting stat loss and can inflict special painful wounds when able to\n   Gains bonus morale for inflicting stat loss.\nD: Has penalty for communication with people and his morale sinks faster if not fighting.",
+	L"优点：Allows aimed shots to the groin.\n   Gains bonus morale for inflicting stat loss.\n缺点：与其他人交流是个问题，脱离战斗后士气也会快速下沉。",// L"A: Allows aimed shots to the groin.\n   Gains bonus morale for inflicting stat loss.\nD: Penalty in communicating with people and morale sinks faster while not in battle.",,
 	L"优点：附近有异性佣兵时表现更佳。\n缺点：附近所有同性佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
 	L"优点：撤退时士气增加。\n缺点：敌众我寡时，会降低士气。", //L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.",
 };

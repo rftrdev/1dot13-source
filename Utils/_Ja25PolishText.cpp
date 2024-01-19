@@ -460,7 +460,7 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"A: Bonus for actions that need patience like repairing items, picking locks, removing traps, doctoring and training militia.\nD: Interrupt chance is slightly lowered.",
 	L"A: Higher suppression and fear resistance.\n    Morale loss for taking damage and companions deaths is lower.\nD: Higher chance to be hit and enemy's penalty reduced when oneself is the moving target.",
 	L"A: Gains morale on non-combat assignments (except training militia).\nD: Gains no morale for killing.",
-	L"A: Higher chance for inflicting stat loss, which may also inflict special painful wounds.\n   Gains bonus morale for inflicting stat loss.\nD: Penalty in communicating with people and morale sinks faster while not in battle.",
+	L"A: Allows aimed shots to the groin.\n   Gains bonus morale for inflicting stat loss.\nD: Penalty in communicating with people and morale sinks faster while not in battle.",
 	L"A: Better performance when mercs of opposite gender are nearby.\nD: Morale for mercs of the same gender grows slower when nearby.",
 	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 };

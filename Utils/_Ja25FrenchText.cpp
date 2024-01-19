@@ -458,9 +458,9 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"+ : A un bonus lorsqu'il faut de la patience comme réparer des objets, déverrouiller une serrure, enlever des pièges, entraîner la milice.\n- : Sa chance d'interrompre une action ennemie est légèrement diminuée.",
 	L"+ : Augmente la résistance à la peur lors d'un tir de couverture.\n    La perte de moral due aux dégâts reçus et à la mort d'un mercenaire est moindre.\n- : Vous êtes plus facilement vulnérable et l'ennemi a sa pénalité due à votre mouvement, réduite.",
 	L"+ : Gagne du moral lorsque vous faites une mission qui n'est pas liée au combat (excepté l'entraînement de milice).\n- : Pas de gains lorsque vous tuez quelqu'un.",
-	L"+ : A plus de chance d'infliger des pertes de stats sur l'ennemi, qui peut aussi infliger de lourds dégâts.\n    Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemi.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.",
+	L"+ : Allows aimed shots to the groin.\n    Gagne du moral lorsque vous infligez des pertes de stats sur l'ennemi.\n- : A une pénalité pour la communication et son moral baisse plus rapidement lorsqu'il ne combat pas.", // TODO.Translate
 	L"+ : A de meilleures performances lorsqu'un certain type d'ennemi est opposé à lui.\n- : Les mercenaires qui possèdent le même type que l'ennemi gagne moins de moral.",
-	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
+	L"+: Gains morale when retreating.\n-: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 
 };
 
